@@ -1,15 +1,10 @@
 # Datasets
 *.csv
 *.json
-*.txt
-*.pt
+cresci_2017_project/cresci-2017/
+twibot_20_project/Twibot-20 kaggle dataset/
 
 # Models
-*.bin
-*.h5
-*.msgpack
-*.ot
-*.onnx
 bert-base-uncased/
 
 # Results
@@ -18,3 +13,7 @@ results/
 
 # Cache
 .cache/
+
+# Paper
+*.pdf
+*.txt
