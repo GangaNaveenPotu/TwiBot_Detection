@@ -1,0 +1,20 @@
+# Datasets
+*.csv
+*.json
+*.txt
+*.pt
+
+# Models
+*.bin
+*.h5
+*.msgpack
+*.ot
+*.onnx
+bert-base-uncased/
+
+# Results
+results/
+*.png
+
+# Cache
+.cache/
