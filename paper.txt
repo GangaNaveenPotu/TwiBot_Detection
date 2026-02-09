@@ -1,0 +1,128 @@
+PAPER REPLICATION CHECKLIST — TWIBOT / HYBRID BERT + METADATA
+IMPLEMENTATION
+
+================================================== GOAL
+================================================== This checklist
+describes what must be implemented to match the research paper
+implementation (not extend or modify it).
+
+================================================== STEP 1 — MATCH EXACT
+METADATA FEATURES ==================================================
+
+You MUST use the same metadata features used in the research paper.
+
+Required Metadata Features:
+
+1.  followers_count
+2.  friends_count (following count)
+3.  listed_count ← CRITICAL FEATURE (Often Missing)
+4.  statuses_count (total tweets)
+5.  verified (0 or 1)
+
+If listed_count is missing, the implementation is NOT matching
+paper-level feature design.
+
+  --------------------------------
+  Why listed_count is important:
+  --------------------------------
+
+• Indicates trust and reputation • Real users appear in more curated
+public lists • Bots usually appear in fewer real lists
+
+================================================== STEP 2 — MATCH TEXT
+PREPROCESSING ==================================================
+
+Paper-level preprocessing usually includes:
+
+• Remove URLs → replace with token “URL” • Remove mentions → replace
+with token “USER” • Remove HTML tags • Remove emojis OR normalize emojis
+• Lowercase normalization • Remove excessive special characters
+
+NOTE: If raw tweets are used without normalization, it is not exact
+replication.
+
+================================================== STEP 3 — MATCH BERT
+TRAINING STYLE ==================================================
+
+Acceptable replication approaches:
+
+• Freeze most BERT layers • Fine tune last transformer layer • Fine tune
+pooler layer
+
+Full BERT fine tuning is optional for replication, not mandatory.
+
+================================================== STEP 4 — MATCH
+OPTIMIZATION STRATEGY ==================================================
+
+Required Training Setup:
+
+• Optimizer → AdamW • Loss → Weighted CrossEntropy OR Focal Loss •
+Scheduler → Cosine Annealing OR Warmup Scheduler • Class Imbalance
+Handling → Weighted Sampler OR Class Weights
+
+================================================== STEP 5 — MATCH
+FEATURE SCALING ==================================================
+
+Required:
+
+• Z-score normalization OR StandardScaler
+
+These are equivalent and acceptable.
+
+================================================== STEP 6 — MATCH
+FEATURE FUSION DESIGN ==================================================
+
+Paper Standard Fusion:
+
+Text: BERT CLS embedding → ~768 dimension
+
+Metadata: MLP output → ~32 to 128 dimension
+
+Fusion: Concatenate → Final classifier layer
+
+================================================== STEP 7 — WHAT IS NOT
+REQUIRED FOR REPLICATION
+==================================================
+
+You DO NOT need:
+
+• New metadata features • New architecture design • More BERT layers •
+Larger models • Extra training epochs beyond convergence
+
+================================================== STEP 8 — MINIMUM
+REQUIREMENT TO CLAIM PAPER REPLICATION
+==================================================
+
+You must have:
+
+TEXT SIDE: • Cleaned tweets + profile text • BERT embedding
+
+METADATA SIDE: • followers • following • listed_count • tweets •
+verified
+
+TRAINING: • AdamW • Scheduler • Class imbalance handling • Metadata
+normalization
+
+================================================== STEP 9 — REPORT
+STATEMENT TEMPLATE ==================================================
+
+You can state:
+
+“We replicated the hybrid multimodal architecture combining BERT textual
+embeddings and normalized profile metadata features (followers count,
+friends count, listed count, statuses count, and verified status) using
+AdamW optimization and cosine learning rate scheduling.”
+
+================================================== STEP 10 — FINAL
+SUMMARY ==================================================
+
+To match research paper implementation:
+
+1.  Add listed_count feature
+2.  Match text cleaning pipeline
+3.  Keep AdamW + Scheduler + Imbalance Handling
+
+If these are done → Paper-level implementation replication achieved.
+
+================================================== END OF DOCUMENT
+==================================================

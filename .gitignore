@@ -13,7 +13,3 @@ results/
 
 # Cache
 .cache/
-
-# Paper
-*.pdf
-*.txt
